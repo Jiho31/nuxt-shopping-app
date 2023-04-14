@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뷰 기초 익히기</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <style>
+        .red {
+            color: red;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h2>01.</h2>
+        {{ nextYear('안녕하세요') }}
+        <input type="text" :value="inputData" />
+        <a :href="blogLink">기술 블로그</a>
+        <br />
+        <br/>
+
+        <h2>04. 이벤트</h2>
+        <div>
+            {{ year }}
+        </div>
+        <button v-on:click="plus">더하기</button>
+        <button v-on:click="minus">빼기</button>
+
+        <h2>05. 데이터 양방향 바인딩</h2>
+        <!-- <input type="text" :value="inputText" @keyup="updateText" /><br/> -->
+        <input type="text" v-model="inputText" /><br/>
+        {{ inputText }} <br />
+
+        <h2>06. Computed 속성</h2>
+        <div>"똑쟁이지호"를 뒤집으면 ↘️</div>
+        <div>
+            {{ reversedMessage }}
+            {{ reversedMessage }}
+            {{ reversedMessage }}
+        </div>
+
+        <h2>07. Watch 속성</h2>
+
+        {{ watchedMessage }} <br />
+        <button @click="changeMessage">Click</button> <br/>
+        {{ updatedMessage }}
+
+        <h2>08. 클래스 & 스타일 바인딩</h2>
+        <p :class="{ red: isRed, bold: isBold }">
+            안녕안녕
+        </p>
+        <button @click="addRed">{{ !isRed ? '빨간색' : '검정색'}}</button>
+        <button @click="addBold">{{ !isBold ? '볼드체' : '일반체'}}</button>
+
+        <p :style="styles">
+            스마일~ 🙂
+        </p>
+
+        <h2>09. v-if 와 v-show</h2>
+        
+        <h4>v-if</h4>
+        <div v-if="show">Yes</div>
+        <div v-else>No</div>
+        <button @click="toggleShow">Toggle</button>
+
+        <template v-if="number === 1">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+        </template>
+        <div v-else-if="number === 2">Heyyy</div>
+        <div v-else>Byeee</div>
+        <br/>
+        <div>Number is {{ number }} </div>
+        <button @click="increaseNumber">Increase</button>
+
+        <h4>v-show</h4>
+
+        <div v-show="show2">Yes</div>
+        <br/>
+        <button>Toggle</button>
+        
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                person: {
+                    name: '복지호',
+                    age: 26
+                },
+                inputData: 'hello',
+                blogLink: 'https://bokjiho.medium.com/',
+                year: 2023,
+                inputText: 'text',
+                message: '똑쟁이지호',
+                watchedMessage: '바보지호',
+                updatedMessage: '오잉',
+                isRed: false,
+                isBold: false,
+                styles: {
+                    color: 'green',
+                    fontSize: '30px',
+                },
+                show: true,
+                number: 1,
+            },
+            methods: {
+                nextYear(greetings) {
+                    return greetings + '! ' + this.person.name + ' 는 내년에 ' + (this.person.age + 1) + '살입니다.'
+                },
+                plus() { 
+                    this.year++;
+                },
+                minus() {
+                    this.year--;
+                },
+                // updateText(event) {
+                //     console.log(event.target.value);
+                //     this.inputText = event.target.value;
+                // },
+                changeMessage() {
+                    this.watchedMessage = '똑쟁이지호';
+                },
+                addRed() {
+                    this.isRed = !this.isRed;
+                },
+                addBold() {
+                    this.isBold = !this.isBold;
+                },
+                toggleShow() {
+                    this.show = !this.show;
+                },
+                increaseNumber() {
+                    this.number++;
+                }
+            },
+            computed: {
+                reversedMessage() {
+                    console.log(this.message.split(''));
+                    return this.message.split('').reverse().join('');
+                }
+            }, 
+            watch: {
+                message(newVal, oldVal) {
+                    this.updatedMessage = '우와!';
+                }
+            }
+        })
+    </script>
+</body>
+</html>

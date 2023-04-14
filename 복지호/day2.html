@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>뷰 기초 익히기</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- <h2>
+      10. v-for
+    </h2>
+    <h4>사용 전</h4>
+    <div>
+      {{ people[0].name }} {{ people[0].age }}
+    </div>
+    <div>
+      {{ people[1].name }} {{ people[1].age }}
+    </div>
+    <div>
+      {{ people[2].name }} {{ people[2].age }}
+    </div>
+    <h4>사용 후</h4>
+
+    <div v-for="(person, index) in people" :key="person.name">
+      # {{ index+1 }}. {{ person.name }} {{ person.age }}
+    </div> -->
+
+    <h2>
+      11. 여러개의 Vue 인스턴스 사용하기
+    </h2>
+    <p>
+      Welcome, {{ name }}!
+    </p>
+    인스턴스 1
+    <button @click="changeText">
+      Change
+    </button>
+  </div>
+  <div id="app-2">
+    인스턴스 2
+    <p>
+      Welcome, {{ name }}!
+    </p>
+  </div>
+  <script>
+    Vue.component('jiho-button', {
+      template: `
+        {{ name }} <br/>
+        <button @click="changeText">
+          Change
+        </button>
+      `,
+      data() {
+        return {
+          name: 'hoji',
+        }
+      },
+      methods: {
+        changeText() {
+          this.name = 'jiho bok';
+        }
+      }
+    })
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+        name: 'hoji',
+        people: [
+          { name: 'a', age: 20 },
+          { name: 'b', age: 21 },
+          { name: 'c', age: 22 },
+        ]
+      },
+      methods: {
+        changeText() {
+          app2.name = this.name;
+        }
+      }
+    })
+
+    const app2 = new Vue({
+      el: '#app-2',
+      data: {
+        name: 'jiho',
+      }
+    })
+  </script>
+</body>
+</html>
