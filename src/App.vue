@@ -6,6 +6,8 @@
       <router-link to="/about">About Page</router-link>
       <span> | </span>
       <router-link to="/lifecycle">Lifecycle</router-link>
+      <span> | </span>
+      <router-link to="/todo">Todo</router-link>
     </div>
     <router-view />
   </div>

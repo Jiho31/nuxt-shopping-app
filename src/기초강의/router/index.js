@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from '../views/Home';
 import About from "../views/About";
 import LifeCycle from '../views/LifeCycle';
+import TodoApp from '../views/TodoApp';
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/lifecycle',
     name: 'lifecycle',
     component: LifeCycle
+  },
+  {
+    path: '/todo',
+    name: 'todo',
+    component: TodoApp
   }
 ];
 
