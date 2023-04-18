@@ -1,9 +1,12 @@
 <template>
   <div>
     <TodoHeader></TodoHeader>
-    <TodoInput></TodoInput>
-    <TodoList></TodoList>
-    <TodoFooter></TodoFooter>
+    <TodoInput @addTodoItem="addOneItem"></TodoInput>
+    <TodoList :propsdata="todoItems" 
+      @removeTodoItem="removeOneItem" 
+      @toggleTodoItem="toggleOneItem"
+      ></TodoList>
+    <TodoFooter @clearItems="removeAllItems"></TodoFooter>
   </div>
 </template>
 
@@ -14,6 +17,39 @@ import TodoList from '../components/Todo/TodoList.vue'
 import TodoFooter from '../components/Todo/TodoFooter.vue'
 
 export default {
+  data: function () {
+    return {
+      todoItems: [],
+    }
+  },
+  methods: {
+    addOneItem(todoItem) {
+      const obj = { completed: false, item: todoItem };
+      localStorage.setItem(todoItem, JSON.stringify(obj));
+      this.todoItems.push(obj);
+    },
+    removeOneItem(todoItem, index) {
+      localStorage.removeItem(todoItem.item);
+      this.todoItems.splice(index, 1);
+    },
+    toggleOneItem(todoItem, index) {
+      this.todoItems[index].completed = !this.todoItems[index].completed;
+      // localStorage.removeItem(todoItem.item);
+      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+    },
+    removeAllItems() {
+      localStorage.clear();
+      this.todoItems = [];
+    }
+  },
+  created: function() {
+    if (localStorage.length > 0) {
+      for (let i = 0; i < localStorage.length; i++) {
+        // console.log(JSON.parse(localStorage.getItem(localStorage.key(i))));
+        this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+      }
+    }
+  },
   components: {
     'TodoHeader': TodoHeader,
     'TodoInput': TodoInput,
@@ -34,6 +70,8 @@ input {
 }
 button {
   border-style: groove;
+
+  cursor: pointer;
 }
 .shadow {
   box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.03);
