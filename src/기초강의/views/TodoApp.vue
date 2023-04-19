@@ -17,7 +17,7 @@ import TodoList from '../components/Todo/TodoList.vue'
 import TodoFooter from '../components/Todo/TodoFooter.vue'
 
 export default {
-  data: function () {
+  data() {
     return {
       todoItems: [],
     }
@@ -42,7 +42,7 @@ export default {
       this.todoItems = [];
     }
   },
-  created: function() {
+  created() {
     if (localStorage.length > 0) {
       for (let i = 0; i < localStorage.length; i++) {
         // console.log(JSON.parse(localStorage.getItem(localStorage.key(i))));
