@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     node: true
   },
-  extends: [
+  extends: [ 
     // vue
     // 'plugin:vue/vue3-essential', // Lv1
     // 'plugin:vue/vue3-strongly-recommended', // Lv2

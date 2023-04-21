@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import router from './기초강의/router'
+import router from './router'
 
 export default {
   name: 'App',
