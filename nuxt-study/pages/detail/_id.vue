@@ -26,19 +26,23 @@
 </template>
 
 <script>
-import { fetchProductById } from '@/api/index'
+import { fetchProductById, createCartItem } from '@/api/index'
 export default {
   async asyncData({ params }) {
     const response = await fetchProductById(params.id);
-    const product = response.data
+    const product = response.data;
     return { product }
   },
   created() {
-    console.log(this.$route.params.id);
+    // console.log(this.$route.params.id);
     fetchProductById(this.$route.params.id);
   },
   methods: {
-    addToCart() {
+    async addToCart() {
+      // console.log(this.product);
+      // alert(this.product);
+      const response = await createCartItem(this.product);
+      console.log(response);
       this.$store.commit('addCartItem', this.product);
       this.$router.push('/cart');
     },
