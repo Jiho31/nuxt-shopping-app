@@ -28,22 +28,28 @@
 <script>
 import { fetchProductById, createCartItem } from '@/api/index'
 export default {
-  head: {
-    title: 'Shopping Item Details',
-    meta: [
-      {
-        hid: 'description',
-        name: 'description',
-        content: '이 상품은 ~~입니다.',
-      },
-    ],
-    link: [
-      {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css?family=Roboto&display=swap'
-      }
-    ]
+  head() {
+    return {
+      title: `Shopping Item Details - ${this.product.name}`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: `이 상품은 ${this.product.name}입니다.`,
+        },
+      ],
+    }
   },
+  // head: {
+  //   title: 'Shopping Item Details',
+  //   meta: [
+  //     {
+  //       hid: 'description',
+  //       name: 'description',
+  //       content: '이 상품은 ~~입니다.',
+  //     },
+  //   ],
+  // },
 
   async asyncData({ params }) {
     const response = await fetchProductById(params.id);
