@@ -1,16 +1,18 @@
 <template>
   <div class="inputBox shadow">
-    <input type="text" v-model="newTodoItem" @keyup.enter="addTodo">
+    <input type="text" v-model="newTodoItem" @keyup.enter="addTodo" />
     <span class="addContainer" v-on:click="addTodo">
-      <i class="addBtn fas fa-plus" aria-hidden="true"></i>
+      <i class="addBtn fas fa-plus" aria-hidden="true" />
     </span>
 
     <Modal v-if="showModal" @close="showModal = false">
       <h3 slot="header">
-        경고 
-        <i class="closeModalBtn fa fa-times" 
-          aria-hidden="true" 
-          @click="showModal = false">
+        경고
+        <i
+          class="closeModalBtn fa fa-times"
+          aria-hidden="true"
+          @click="showModal = false"
+        >
         </i>
       </h3>
       <p slot="body">할 일을 입력하세요.</p>
@@ -19,33 +21,33 @@
 </template>
 
 <script>
-import Modal from './common/Modal.vue'
+import Modal from "./common/Modal.vue";
 
 export default {
   data() {
     return {
-      newTodoItem: '',
-      showModal: false
-    }
+      newTodoItem: "",
+      showModal: false,
+    };
   },
   methods: {
     addTodo() {
-      if (this.newTodoItem !== '') {
+      if (this.newTodoItem !== "") {
         const item = this.newTodoItem.trim();
-        this.$emit('addItem', item);
+        this.$store.commit("addOneItem", item);
         this.clearInput();
       } else {
         this.showModal = !this.showModal;
       }
     },
     clearInput() {
-      this.newTodoItem = '';
-    }
+      this.newTodoItem = "";
+    },
   },
   components: {
-    Modal
-  }
-}
+    Modal,
+  },
+};
 </script>
 
 <style scoped>
@@ -64,7 +66,7 @@ input:focus {
 }
 .addContainer {
   float: right;
-  background: linear-gradient(to right, #6478FB, #8763FB);
+  background: linear-gradient(to right, #6478fb, #8763fb);
   display: block;
   width: 3rem;
   border-radius: 0 5px 5px 0;
