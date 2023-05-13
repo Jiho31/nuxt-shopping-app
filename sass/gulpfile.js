@@ -1,9 +1,15 @@
 const { src, dest, watch, series } = require("gulp");
 const sass = require("gulp-sass")(require("sass"));
+const purgecss = require("gulp-purgecss");
 
 function buildStyles() {
   return src("shinobi/**/*.scss")
     .pipe(sass()) // sass 컴파일러를 통해 scss 파일을 css로 컴파일
+    .pipe(
+      purgecss({
+        content: ["*.html"],
+      })
+    )
     .pipe(dest("css")); // 컴파일된 css 파일이 출력되는 경로
 }
 
